@@ -30,3 +30,5 @@ __pycache__/
 
 accuracy.py
 dataset_split.py
+
+*.tflite
