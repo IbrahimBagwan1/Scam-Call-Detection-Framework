@@ -1,6 +1,9 @@
 # datasets
-dataset/
-*.csv
+# dataset/
+# *.csv
+
+composite_test.csv
+composite_train.csv
 
 # trained models
 final_scam_model
