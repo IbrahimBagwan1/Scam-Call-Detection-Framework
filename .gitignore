@@ -1,0 +1,29 @@
+# datasets
+dataset/
+*.csv
+
+# trained models
+final_scam_model
+sms_pretrained_model
+
+*.safetensors
+*.pt
+*.h5
+*.pkl
+
+# diagrams & plots
+diagrams/
+*.png
+*.jpg
+*.jpeg
+
+# results
+results_calls/
+results_sms/
+
+# misc
+__pycache__/
+
+
+accuracy.py
+dataset_split.py
