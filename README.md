@@ -110,3 +110,164 @@ is available here:
 
 ## 📌 Keywords
 Scam Call Detection · Vishing · Edge AI · Privacy-Preserving ML · Domain Adaptation · Knowledge Distillation · Offline AI · Android ML
+
+
+---
+
+# 🚀 How to Use This Repository (Execution Guide)
+
+This section provides a **clear, ordered workflow** to run the repository and obtain results from scratch.
+
+The pipeline follows a **four-stage execution flow**:
+
+1. SMS-based pre-training  
+2. Scam call fine-tuning  
+3. Model explainability analysis  
+4. Model quantization for Android deployment  
+
+Each step depends on the successful completion of the previous one.
+
+---
+
+## 🔄 Execution Flow Overview
+
+```
+Dataset Preparation
+  ↓
+SMS Pre-training
+  ↓
+Scam Call Fine-tuning
+  ↓
+Explainability Analysis
+  ↓
+Model Quantization (TFLite)
+```
+
+---
+
+## 🧩 Step-by-Step Execution Instructions
+
+### ✅ Step 0: Verify Dataset Placement
+
+Before running any script, ensure the dataset directory is structured as follows:
+
+```
+dataset/
+├── sms_dataset.csv
+├── call_dataset.csv
+```
+
+- `sms_dataset.csv` → Used for SMS-based pre-training
+- `call_dataset.csv` → Used for scam call fine-tuning
+
+Do not rename these files unless you update the script paths.
+
+---
+
+### 🧠 Step 1: SMS Pre-training (Source Domain)
+
+This step trains the base language model to learn general fraud semantics from SMS data.
+
+```bash
+python 1_pretrain_sms.py
+```
+
+**What this step does:**
+- Loads SMS dataset
+- Trains a transformer model on scam-related text
+- Learns linguistic patterns such as urgency, authority, and coercion
+
+**Expected outcome:**
+- A pre-trained fraud-aware language model stored locally
+- Training loss and accuracy printed in the console
+
+⚠️ *This step may take time on CPU-only systems.*
+
+---
+
+### 🎯 Step 2: Scam Call Fine-tuning (Target Domain)
+
+This step adapts the pre-trained model to voice-based scam transcripts.
+
+```bash
+python 2_finetune_calls.py
+```
+
+**What this step does:**
+- Loads the SMS-pretrained model
+- Fine-tunes it on call transcript data
+- Specializes the model for scam call detection
+
+**Expected outcome:**
+- Fine-tuned scam call detection model
+- Evaluation metrics: Accuracy, Precision, Recall, F1-score
+
+📌 *This step is critical for transferring knowledge from text to voice.*
+
+---
+
+### 🔍 Step 3: Model Explainability (Interpretability)
+
+This step provides model transparency using SHAP-based explainability.
+
+```bash
+python 3_explain_model.py
+```
+
+**What this step does:**
+- Computes token-level importance scores
+- Identifies linguistic patterns strongly associated with scams
+- Validates that the model focuses on semantic fraud cues
+
+**Expected outcome:**
+- Explainability metrics
+- Visual or numerical indicators of scam-related tokens
+
+**Useful for:**
+- Academic validation
+- Model trustworthiness
+- Presentation and reporting
+
+---
+
+### ⚡ Step 4: Model Quantization for Android Deployment
+
+This step converts the trained model into an INT8 quantized TFLite model suitable for mobile devices.
+
+```bash
+python quantize_model.py
+```
+
+**What this step does:**
+- Converts the trained transformer model to TensorFlow Lite
+- Applies post-training quantization
+- Optimizes the model for low-latency on-device inference
+
+**Expected outcome:**
+- A quantized `.tflite` model
+- Ready for integration into the Android application
+
+---
+
+## 📱 Using the Model in the Android App
+
+Once quantization is complete:
+
+1. Copy the generated `.tflite` model (already added in the repo)
+2. Place it inside the Android app's `assets/` directory
+3. Load it using TensorFlow Lite Interpreter
+4. Perform real-time inference on transcribed call text
+
+🔗 Android implementation details: [Fraudulent-Call-Detection-and-Prevention-System-for-Mobile-Devices](https://github.com/IbrahimBagwan1/Fraudulent-Call-Detection-and-Prevention-System-for-Mobile-Devices)
+
+---
+
+## 🧪 Expected Outputs Summary
+
+| Step | Output |
+|------|--------|
+| SMS Pre-training | Fraud-aware base model |
+| Call Fine-tuning | Scam call detection model |
+| Explainability | Token importance & semantic insights |
+| Quantization | INT8 TFLite model |
+```
